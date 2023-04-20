@@ -40,10 +40,6 @@ zi cdclear -q
 
 setopt promptsubst
 
-# Load Prompt
-# zi snippet OMZT::jtriley
-zi snippet OMZT::dieter
-
 # completions
 zinit light zsh-users/zsh-autosuggestions
 
@@ -102,8 +98,17 @@ setopt extended_glob
 
 ########################################
 # enable path
-# homebrew for M1
-export PATH=$PATH:/opt/homebrew/bin:/Users/k/Library/Python/3.9/bin
+#########################################
+## OS 別の設定
+case ${OSTYPE} in
+    darwin*)
+        # homebrew for M1
+        export PATH=$PATH:/opt/homebrew/bin:/Users/k/Library/Python/3.9/bin
+        alias nvim=/Users/k/.usr/nvim-macos/bin/nvim
+        ;;
+    linux*)
+        ;;
+esac
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOROOT/bin
 source $HOME/.cargo/env
@@ -129,8 +134,7 @@ alias -g P='| peco'
 alias -g W='| wc -l'
 
 # editor
-alias nvim=/Users/k/.usr/nvim-macos/bin/nvim
-alias nv=/Users/k/.usr/nvim-macos/bin/nvim
+alias nv=nvim
 alias vs='nvim ~/.ssh/config'
 alias vz='nvim ~/.zshrc'
 
