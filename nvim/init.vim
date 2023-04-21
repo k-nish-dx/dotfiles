@@ -35,7 +35,9 @@ if dein#load_state(expand('~/.config/nvim/plugins'))
   call dein#add('Shougo/dein.vim')
   call dein#add('Shougo/denite.nvim')
   " call dein#add('tbodt/deoplete-tabnine', { 'build': './install.sh' })
+  call dein#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
   call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' })
+  call dein#add('codota/tabnine-nvim', {'do': "./dl_binaries.sh"})
   call dein#end()
   call dein#save_state()
 endif
@@ -46,19 +48,21 @@ endif
 filetype plugin indent on
 syntax enable
 syntax on
-"colorscheme molokai
+" colorscheme molokai
+" let g:molokai_original = 1
 "colorscheme koehler
 "colorscheme elflord
 "colorscheme spring-night
 "colorscheme vividchalk
-"colorscheme tender
 " colorscheme candy
 " colorscheme badwolf
 " colorscheme eldar
 " colorscheme gruvbox
-colorscheme onedark
-let g:gruvbox_contrast_dark = 'hard'
-let g:molokai_original = 1
+" let g:gruvbox_contrast_dark = 'hard'
+colorscheme everforest
+let g:everforest_background = 'hard'
+" colorscheme onedark
+" colorscheme tokyonight-night
 let g:rehash256 = 1
 set t_Co=256
 let g:airline_theme = 'dark'
@@ -717,18 +721,15 @@ let g:pydocstring_doq_path = '/usr/local/bin/doq'
 "" (default: false, search engine will ignore vcs untracked files)
 "let g:any_jump_disable_vcs_ignore = 0
 
-"""--------------------------------
-"""Telescope
-"""--------------------------------
 " Find files using Telescope command-line sugar.
 nnoremap ff <cmd>Telescope find_files<cr>
 nnoremap fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-"""--------------------------------
-"""coc nvim
-"""--------------------------------
+""--------------------------------
+""coc nvim
+""--------------------------------
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')

@@ -130,15 +130,9 @@ depends = ['deoplete.nvim']
 
 # [[plugins]]
 # repo = 'ms-jpq/coq_nvim'
-# branch = 'coq'
 
 # [[plugins]]
 # repo = 'ms-jpq/coq.artifacts'
-# branch = 'artifacts'
-
-# [[plugins]]
-# repo = 'ms-jpq/coq.thirdparty'
-# branch = '3p'
 
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
@@ -147,14 +141,13 @@ repo = 'nvim-lua/plenary.nvim'
 repo = 'nvim-telescope/telescope.nvim'
 
 [[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-do = ':TSUpdate'
-
-[[plugins]]
-repo = 'EdenEast/nightfox.nvim'
+repo = 'rhysd/vim-grammarous'
 
 [[plugins]]
 repo = 'joshdick/onedark.vim'
 
 [[plugins]]
 repo = 'folke/tokyonight.nvim'
+
+[[plugins]]
+repo = 'sainnhe/everforest'
