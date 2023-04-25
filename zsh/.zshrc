@@ -155,3 +155,14 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+## コマンド補完
+zinit light zsh-users/zsh-completions
+autoload -Uz compinit && compinit
+
+## 補完で小文字でも大文字にマッチさせる
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+## 補完候補を一覧表示したとき、Tabや矢印で選択できるようにする
+zstyle ':completion:*:default' menu select=1
+bindkey '^[[Z' reverse-menu-complete
