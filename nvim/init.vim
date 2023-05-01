@@ -221,37 +221,6 @@ tnoremap <Esc> <C-\><C-n>
 
 nnoremap ,t :terminal<CR>
 
-" let g:python_host_prog = '/usr/bin/python2'
-" let g:python3_host_prog = '/usr/bin/python3'
-
-" if exists("$VIRTUAL_ENV")
-"   if !empty(glob("$VIRTUAL_ENV/bin/python3"))
-"     let g:python3_host_prog = substitute(system("which python"), '\n', '', 'g')
-"   else
-"     let g:python_host_prog = substitute(system("which python"), '\n', '', 'g')
-"   endif
-" endif
-
-"---------------------------------
-" startify
-"---------------------------------
-let g:startify_files_number = 5
-let g:startify_list_order = [
-        \ ['♻  最近使ったファイル:'],
-        \ 'files',
-        \ ['♲  最近使ったファイル(カレントディレクトリ下):'],
-        \ 'dir',
-        \ ['⚑  セッション:'],
-        \ 'sessions',
-        \ ['☺  ブックマーク:'],
-        \ 'bookmarks',
-        \ ]
-let g:startify_bookmarks = ["~/.config/nvim/init.vim", "~/.config/nvim/dein.toml", "~/.zshrc"]
-let g:startify_session_autoload = 1
-nnoremap <silent> <C-p> :Startify<CR>
-
-
-
 "-----------------------------------
 "vim-flake8
 "-----------------------------------
@@ -516,18 +485,18 @@ nnoremap <silent> <C-k> :Unite file<CR>
 "---------------------------------
 let g:startify_files_number = 5
 let g:startify_list_order = [
-        \ ['♻  最近使ったファイル:'],
+        \ ['♻ Recent Files:'],
         \ 'files',
-        \ ['♲  最近使ったファイル(カレントディレクトリ下):'],
+        \ ['♲ Recent Files (under current dir):'],
         \ 'dir',
-        \ ['⚑  セッション:'],
+        \ ['⚑ Sessions:'],
         \ 'sessions',
-        \ ['☺  ブックマーク:'],
+        \ ['☺ Bookmarks:'],
         \ 'bookmarks',
         \ ]
 let g:startify_bookmarks = ["~/.config/nvim/init.vim", "~/.config/nvim/dein.toml"]
 let g:startify_session_autoload = 1
-
+nnoremap <silent> <C-p> :Startify<CR>
 
 "---------------------------------
 " w0rp/ale
