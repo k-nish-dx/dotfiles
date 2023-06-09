@@ -150,11 +150,10 @@ add-zsh-hook chpwd chpwd_recent_dirs
 
 bindkey '^r' anyframe-widget-execute-history
 
-# power 10k
-zinit ice depth=1; zinit light romkatv/powerlevel10k
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 
 ## コマンド補完
 zinit light zsh-users/zsh-completions
