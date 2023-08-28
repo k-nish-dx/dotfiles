@@ -110,8 +110,8 @@ case ${OSTYPE} in
         ;;
 esac
 export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOROOT/bin
 source $HOME/.cargo/env
+export PATH=$PATH:$GOROOT/bin:$HOME/.local/bin
 
 # Alias
 alias ls='exa'
@@ -134,6 +134,7 @@ alias -g P='| peco'
 alias -g W='| wc -l'
 
 # editor
+alias nvim='$HOME/.local/bin/nvim.appimage'
 alias nv=nvim
 alias vs='nvim ~/.ssh/config'
 alias vz='nvim ~/.zshrc'
@@ -141,14 +142,16 @@ alias vz='nvim ~/.zshrc'
 # zoxide
 eval "$(zoxide init zsh)"
 
-# anyframe
-zinit light mollifier/anyframe
+# # anyframe
+# zinit light mollifier/anyframe
 
-bindkey '^f' anyframe-widget-cdr
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
+# bindkey '^f' anyframe-widget-cdr
+# autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+# add-zsh-hook chpwd chpwd_recent_dirs
 
-bindkey '^r' anyframe-widget-execute-history
+# bindkey '^r' anyframe-widget-execute-history
+
+zinit load atuinsh/atuin
 
 zinit ice as"command" from"gh-r" \
           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
@@ -165,3 +168,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 ## 補完候補を一覧表示したとき、Tabや矢印で選択できるようにする
 zstyle ':completion:*:default' menu select=1
 bindkey '^[[Z' reverse-menu-complete
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export GPG_TTY=$(tty)
