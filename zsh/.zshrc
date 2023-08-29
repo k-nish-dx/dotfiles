@@ -107,6 +107,7 @@ case ${OSTYPE} in
         alias nvim=/Users/k/.usr/nvim-macos/bin/nvim
         ;;
     linux*)
+        alias nvim='$HOME/.nvim/squashfs-root/usr/bin/nvim'
         ;;
 esac
 export GOROOT=/usr/local/opt/go/libexec
@@ -134,7 +135,6 @@ alias -g P='| peco'
 alias -g W='| wc -l'
 
 # editor
-alias nvim='$HOME/.local/bin/nvim.appimage'
 alias nv=nvim
 alias vs='nvim ~/.ssh/config'
 alias vz='nvim ~/.zshrc'
@@ -174,3 +174,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export GPG_TTY=$(tty)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
