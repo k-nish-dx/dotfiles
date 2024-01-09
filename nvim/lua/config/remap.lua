@@ -13,6 +13,7 @@ vim.opt.number = true
 vim.opt.showmatch = true
 vim.opt.matchtime = 1
 vim.opt.clipboard = 'unnamedplus'
+vim.opt.spelllang = 'en_us'
 
 -- mapleader
 vim.g.mapleader = ","
@@ -40,3 +41,5 @@ vim.keymap.set('n', 'sv', ':<C-u>vs<cr>')
 
 -- git
 vim.keymap.set({'n', 'v', 'i'}, ',g', ':noh<cr>')
+-- spell
+vim.keymap.set('n', '<C-s>', ':setlocal spell!<cr>')
