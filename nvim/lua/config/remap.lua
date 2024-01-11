@@ -40,6 +40,7 @@ vim.keymap.set('n', 'ss', ':<C-u>sp<cr>')
 vim.keymap.set('n', 'sv', ':<C-u>vs<cr>')
 
 -- git
-vim.keymap.set({'n', 'v', 'i'}, ',g', ':noh<cr>')
+vim.keymap.set('n', ',g', ':noh<cr>')
+vim.keymap.set('n', ',b', ':Git blame<cr>')
 -- spell
 vim.keymap.set('n', '<C-s>', ':setlocal spell!<cr>')
