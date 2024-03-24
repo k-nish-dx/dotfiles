@@ -1,10 +1,6 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [ "$ZSHRC_PROFILE" != "" ]; then
+  zmodload zsh/zprof && zprof > /dev/null
 fi
-
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -16,7 +12,7 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
 fi
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
+# autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # Load a few important annexes, without Turbo
@@ -38,9 +34,10 @@ zi snippet OMZL::git.zsh
 zi snippet OMZP::git
 zi cdclear -q
 
-setopt promptsubst
+# setopt promptsubst
 
 # completions
+zinit ice wait lucid atload'_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
 
 # syntax highlights
@@ -111,8 +108,8 @@ case ${OSTYPE} in
         ;;
 esac
 export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOROOT/bin
 source $HOME/.cargo/env
-export PATH=$PATH:$GOROOT/bin:$HOME/.local/bin
 
 # Alias
 alias ls='exa'
@@ -146,14 +143,15 @@ eval "$(zoxide init zsh)"
 # atuin
 eval "$(atuin init zsh --disable-up-arrow)"
 
-zinit ice as"command" from"gh-r" \
-          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-          atpull"%atclone" src"init.zsh"
-zinit light starship/starship
+# zinit ice as"command" from"gh-r" \
+#           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+#           atpull"%atclone" src"init.zsh"
+# zinit light starship/starship
+eval "$(starship init zsh)"
 
 ## コマンド補完
 zinit light zsh-users/zsh-completions
-autoload -Uz compinit && compinit
+# autoload -Uz compinit && compinit
 
 ## 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
