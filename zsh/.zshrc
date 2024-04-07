@@ -2,54 +2,13 @@ if [ "$ZSHRC_PROFILE" != "" ]; then
   zmodload zsh/zprof && zprof > /dev/null
 fi
 
-### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
-
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-# autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
-### End of Zinit's installer chunk
-
-zinit snippet PZT::modules/helper/init.zsh
-
-# Must Load OMZ Git library
-zi snippet OMZL::git.zsh
-
-# Load Git plugin from OMZ
-zi snippet OMZP::git
-zi cdclear -q
-
-# setopt promptsubst
-
-# completions
-zinit ice wait lucid atload'_zsh_autosuggest_start'
-zinit light zsh-users/zsh-autosuggestions
-
-# syntax highlights
-zinit light zdharma/fast-syntax-highlighting
-
 ########################################
 export LANG=en_US.UTF-8
 export LC_TYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 # 色を使用出来るようにする
 autoload -Uz colors
-colors
+# colors
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
@@ -100,15 +59,12 @@ setopt extended_glob
 case ${OSTYPE} in
     darwin*)
         # homebrew for M1
-        export PATH=$PATH:/opt/homebrew/bin:/Users/k/Library/Python/3.9/bin
+        export PATH=$PATH:/opt/homebrew/bin:/Users/k/Library/Python/3.9/bin:/opt/homebrew/opt/ruby/bin:/usr/local/opt/go/libexec/bin
         alias nvim=/Users/k/.usr/nvim-macos/bin/nvim
         ;;
     linux*)
-        alias nvim='$HOME/.nvim/squashfs-root/usr/bin/nvim'
         ;;
 esac
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOROOT/bin
 source $HOME/.cargo/env
 
 # Alias
@@ -137,21 +93,14 @@ alias vs='nvim ~/.ssh/config'
 alias vz='nvim ~/.zshrc'
 alias vk='nvim ~/.ssh/known_hosts'
 
-# zoxide
-eval "$(zoxide init zsh)"
+alias gf='git fetch'
+alias gsw='git switch'
 
 # atuin
 eval "$(atuin init zsh --disable-up-arrow)"
 
-# zinit ice as"command" from"gh-r" \
-#           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-#           atpull"%atclone" src"init.zsh"
-# zinit light starship/starship
+# startship prompt
 eval "$(starship init zsh)"
-
-## コマンド補完
-zinit light zsh-users/zsh-completions
-# autoload -Uz compinit && compinit
 
 ## 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -178,3 +127,26 @@ fd-peco-search() {
 # 任意のキーバインドを設定 (例: Ctrl+f)
 zle -N fd-peco-search
 bindkey '^f' fd-peco-search
+function zsh-startuptime-slower-than-default() {
+    local time_rc
+    time_rc=$((TIMEFMT="%mE"; time zsh -i -c exit) &> /dev/stdout)
+
+    local time_norc
+    time_norc=$((TIMEFMT="%mE"; time zsh -df -i -c "autoload -Uz compinit && compinit -C; exit") &> /dev/stdout)
+    echo "my zshrc: ${time_rc}\ndefault zsh: ${time_norc}\n"
+
+    local result
+    result=$(scale=3 echo "${time_rc%ms} / ${time_norc%ms}" | bc)
+    echo "${result}x slower your zsh than the default."
+}
+
+function zsh-profiler() {
+    ZSHRC_PROFILE=1 zsh -i -c zprof
+}
+
+# sheldon source
+eval "$(sheldon source)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
